@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# React Drag and Drop 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Drag and Drop feature is one of the common feature used across dashboards and automated form creations. 
+This repo is an example of how drag and drop feature can be implemented in React Js using [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd).
 
-## Available Scripts
+[See DEMO](https://drag-drop-react.netlify.app/)
 
-In the project directory, you can run:
+## react-beautiful-dnd 
 
-### `yarn start`
+key aspect of the package is;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+DragDropContext
+Draggable
+Droppable
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Depending on the requirement, a segemnt of code can be draggable / droppable or both. In this example, ```<ul>``` is both draggable and droppable.
 
-### `yarn test`
+### How to re-order array indexes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+const handleOnDragEnd = (result) => {
+    
+    // if destination is not droppable area, return so it is dragged back to its original position
+    if(!result.destination) return;
 
-### `yarn build`
+    // make new array from personList 
+    const items = Array.from(personList);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    // splice items array from the source of the object moved
+    const [reorderedItem] = items.splice(result.source.index, 1);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    // re-position the sliced array part back to the items array
+    items.splice(result.destination.index, 0, reorderedItem);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    // update our state with re-ordered array (items)
+    updatePersonList(items);
 
-### `yarn eject`
+  };
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Cheers!
